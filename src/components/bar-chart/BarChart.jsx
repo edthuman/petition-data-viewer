@@ -1,10 +1,9 @@
 import { Bar } from 'react-chartjs-2';
 
-
-function BarChart({petitionData}) {
-    const allCountryData = petitionData.signaturesByCountry
+function BarChart({petitionData, selectedScope}) {
+    const allScopeData = []
     const labels = []
-    const signaturesPerCountry = []
+    const signaturesPerLabel = []
     const options = {
         plugins: {
             legend: {
@@ -21,25 +20,33 @@ function BarChart({petitionData}) {
         labels,
         datasets: [
         {
-          data: signaturesPerCountry,
+          data: signaturesPerLabel,
           borderColor: 'rgb(255, 99, 132)',
           backgroundColor: 'rgba(255, 99, 132, 0.5)',
         },
         ]
     }
     let ukSignatureCount = 0
+    
+    if (selectedScope === "world") {
+        allScopeData.push(...petitionData.signaturesByCountry)
+    } else if (selectedScope === "uk-regions") {
+        allScopeData.push(...petitionData.signaturesByRegion)
+    } else {
+        allScopeData.push(...petitionData.signaturesByConstituency)
+    }
 
-    for (let i = 0; i < allCountryData.length; i++) {
-        if(allCountryData[i].name !== "United Kingdom") {
-        labels.push(allCountryData[i].name)
-        signaturesPerCountry.push(allCountryData[i].signature_count)
-        } else ukSignatureCount += allCountryData[i].signature_count
+    for (let i = 0; i < allScopeData.length; i++) {
+        if(allScopeData[i].name !== "United Kingdom") {
+        labels.push(allScopeData[i].name)
+        signaturesPerLabel.push(allScopeData[i].signature_count)
+        } else ukSignatureCount += allScopeData[i].signature_count
     }
 
     return <>
-        {allCountryData.length ? (<>
-            <p>The United Kingdom has been excluded from the data, it had {ukSignatureCount} signatures</p>
-            <p>Highlight over the bars to see which country they are for</p>
+        {allScopeData.length ? (<>
+            {selectedScope === "world" ? <p>The United Kingdom has been excluded from the data, it had {ukSignatureCount} signatures</p> : null}
+            <p>Highlight over the bars to see which {selectedScope === "world" ? "country" : (selectedScope === "uk-regions" ? "region" : "constituency")} they are for</p>
             <Bar options={options} data={data}/>
         </>) : <p>Signature counts by country are unavailable for this petition, it had {petitionData.signatureCount} signatures in total</p>}
     </>
