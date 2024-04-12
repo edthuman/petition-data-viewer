@@ -24,6 +24,7 @@ function PetitionSelector({petitionData, setPetitionData}) {
         const idSearched = e.target[0].value
         setSearchedID(idSearched)
         setIsPetitionDataLoading(true)
+        setPetitionData({})
 
         axios.get(`https://petition.parliament.uk/petitions/${idSearched}.json`)
         .then((response)=>{
@@ -33,8 +34,8 @@ function PetitionSelector({petitionData, setPetitionData}) {
                 state: returnedDetails.state,
                 signatureCount: returnedDetails.signature_count,
                 createdAt: returnedDetails.created_at,
-                signatureByCountry: returnedDetails.signatures_by_country,
-                signatureByConstituency: returnedDetails.signatures_by_consistuency,
+                signaturesByCountry: returnedDetails.signatures_by_country,
+                signaturesByConstituency: returnedDetails.signatures_by_consistuency,
                 signaturesByRegion: returnedDetails.signatures_by_region
             }
             setPetitionData(petitionObject)
@@ -43,6 +44,7 @@ function PetitionSelector({petitionData, setPetitionData}) {
             setIsIDError(false)
         }).catch((err) => {
             setIsIDError(true)
+            setIsPetitionDataLoading(false)
             setIsPetitionDataFound(false)
         })
     }
@@ -54,8 +56,9 @@ function PetitionSelector({petitionData, setPetitionData}) {
             </label>
             <button>Find petition</button>
         </form>
-        {isIDError ? (searchedID === "" ? <p>Please input an ID</p>: <p>Error finding petition, please check {searchedID} is the correct ID and try again</p>) : (
-            isPetitionDataLoading ? <p>Finding petition...</p> : (isPetitionDataFound ? <PetitionDetails petitionData={petitionData}/> : null))}
+        {isPetitionDataLoading ? <p>Finding petition...</p> : (
+            isIDError ? (searchedID === "" ? <p>Please input an ID</p> : <p>Error finding petition, please check {searchedID} is the correct ID and try again</p>) : (
+             isPetitionDataFound ? <PetitionDetails petitionData={petitionData}/> : null))}
     </>
 }
 
