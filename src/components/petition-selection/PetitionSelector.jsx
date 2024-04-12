@@ -35,7 +35,7 @@ function PetitionSelector({petitionData, setPetitionData}) {
                 signatureCount: returnedDetails.signature_count,
                 createdAt: returnedDetails.created_at,
                 signaturesByCountry: returnedDetails.signatures_by_country,
-                signaturesByConstituency: returnedDetails.signatures_by_consistuency,
+                signaturesByConstituency: returnedDetails.signatures_by_constituency,
                 signaturesByRegion: returnedDetails.signatures_by_region
             }
             setPetitionData(petitionObject)
