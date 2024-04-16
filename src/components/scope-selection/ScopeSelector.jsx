@@ -4,7 +4,7 @@ function ScopeSelector({selectedScope, setSelectedScope}) {
     }
 
     return <form>
-        <p>Where would you like to see signatures from?</p>
+        <h3>Where would you like to see signatures from?</h3>
         <label>
             <input type="radio" value="world" name="scope" checked={selectedScope === "world"} onChange={handleScopeSelection}></input>World
         </label>
