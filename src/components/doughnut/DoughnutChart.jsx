@@ -48,7 +48,13 @@ function DoughnutChart({petitionData, selectedScope}) {
         signaturesPerLabel.push(allScopeData[i].signature_count)
         } else ukSignatureCount += allScopeData[i].signature_count
     }
-    return <Doughnut data={data} options={options}/>
+    return <>
+        {allScopeData.length ? (<>
+        {selectedScope === "world" ? <p>The United Kingdom has been excluded from the data, it had {ukSignatureCount} signatures</p> : null}
+        <p>Highlight over the bars to see which {selectedScope === "world" ? "country" : (selectedScope === "uk-regions" ? "region" : "constituency")} they are for</p>
+        <Doughnut data={data} options={options}/>
+        </>) : <p>Signature counts by location are unavailable for this petition, it had {petitionData.signatureCount} signatures in total</p>}
+        </>
 }
 
 export default DoughnutChart
