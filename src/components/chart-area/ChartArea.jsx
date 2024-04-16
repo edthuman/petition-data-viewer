@@ -1,31 +1,11 @@
-import { Bar } from 'react-chartjs-2';
+import BarChart from "./BarChart"
+import DoughnutChart from "./DoughnutChart"
+import PolarAreaChart from "./PolarAreaChart"
 
-function BarChart({petitionData, selectedScope}) {
+function ChartArea({petitionData, selectedScope, selectedChart}) {
     const allScopeData = []
     const labels = []
     const signaturesPerLabel = []
-    const options = {
-        plugins: {
-            legend: {
-            display: false,
-        }
-    },
-        scales: {
-          x:{
-                display: false,
-        },
-      }
-    }
-    const data = {
-        labels,
-        datasets: [
-        {
-          data: signaturesPerLabel,
-          borderColor: 'rgb(255, 99, 132)',
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        },
-        ]
-    }
     let ukSignatureCount = 0
     
     if (selectedScope === "world") {
@@ -46,10 +26,12 @@ function BarChart({petitionData, selectedScope}) {
     return <>
         {allScopeData.length ? (<>
             {selectedScope === "world" ? <p>The United Kingdom has been excluded from the data, it had {ukSignatureCount} signatures</p> : null}
-            <p>Highlight over the bars to see which {selectedScope === "world" ? "country" : (selectedScope === "uk-regions" ? "region" : "constituency")} they are for</p>
-            <Bar options={options} data={data}/>
+            <p>Highlight over the {selectedChart === "bar" ? "bars" : "segments"} to see which {selectedScope === "world" ? "country" : (selectedScope === "uk-regions" ? "region" : "constituency")} they are for</p>
+            {selectedChart === "bar" ? <BarChart labels={labels} signaturesPerLabel={signaturesPerLabel}/> : (
+             selectedChart === "doughnut" ? <DoughnutChart labels={labels} signaturesPerLabel={signaturesPerLabel}/> : (
+            <PolarAreaChart labels={labels} signaturesPerLabel={signaturesPerLabel}/>))}
         </>) : <p>Signature counts by location are unavailable for this petition, it had {petitionData.signatureCount} signatures in total</p>}
     </>
 }
 
-export default BarChart
+export default ChartArea
