@@ -1,6 +1,6 @@
-import BarChart from "../bar-chart/BarChart"
-import DoughnutChart from "../doughnut/DoughnutChart"
-import PolarAreaChart from "../polar-area-chart/PolarAreaChart"
+import BarChart from "./BarChart"
+import DoughnutChart from "./DoughnutChart"
+import PolarAreaChart from "./PolarAreaChart"
 
 function ChartArea({petitionData, selectedScope, selectedChart}) {
     const allScopeData = []
