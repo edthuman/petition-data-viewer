@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import './App.css'
 import PetitionSelector from './components/petition-selection/PetitionSelector'
-import BarChart from './components/bar-chart/BarChart'
 import { registerCharts } from '../registerCharts.ts'
 import ScopeSelector from './components/scope-selection/ScopeSelector.jsx'
-import DoughnutChart from './components/doughnut/DoughnutChart.jsx'
 import ChartSelector from './components/chart-selection/ChartSelector.jsx'
-import PolarAreaChart from './components/polar-area-chart/PolarAreaChart.jsx'
+import ChartArea from './components/chart-area/ChartArea.jsx'
 
 
 registerCharts();
@@ -22,10 +20,7 @@ function App() {
       <PetitionSelector petitionData={petitionData} setPetitionData={setPetitionData}/>
       <ScopeSelector selectedScope={selectedScope} setSelectedScope={setSelectedScope}/>
       <ChartSelector selectedChart={selectedChart} setSelectedChart={setSelectedChart}/>
-      {Object.keys(petitionData).length ? (
-        selectedChart === "bar" ? <BarChart petitionData={petitionData} selectedScope={selectedScope}/> : (
-          selectedChart === "doughnut" ? <DoughnutChart petitionData={petitionData} selectedScope={selectedScope}/> : (
-          <PolarAreaChart petitionData={petitionData} selectedScope={selectedScope}/>))) : null}
+      {Object.keys(petitionData).length ? <ChartArea petitionData={petitionData} selectedScope={selectedScope} selectedChart={selectedChart}/> : null}
     </>
   )
 }
