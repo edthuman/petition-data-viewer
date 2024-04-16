@@ -48,7 +48,7 @@ function BarChart({petitionData, selectedScope}) {
             {selectedScope === "world" ? <p>The United Kingdom has been excluded from the data, it had {ukSignatureCount} signatures</p> : null}
             <p>Highlight over the bars to see which {selectedScope === "world" ? "country" : (selectedScope === "uk-regions" ? "region" : "constituency")} they are for</p>
             <Bar options={options} data={data}/>
-        </>) : <p>Signature counts by country are unavailable for this petition, it had {petitionData.signatureCount} signatures in total</p>}
+        </>) : <p>Signature counts by location are unavailable for this petition, it had {petitionData.signatureCount} signatures in total</p>}
     </>
 }
 
