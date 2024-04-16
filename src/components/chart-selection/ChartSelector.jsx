@@ -9,6 +9,7 @@ function ChartSelector({selectedChart, setSelectedChart}) {
         <h4>Which type of chart did you want to see?</h4>
         <button onClick={handleChartSelection} value="bar" className={selectedChart === "bar" ? "selected" : "deselected"}>Bar Chart</button>
         <button onClick={handleChartSelection} value="doughnut" className={selectedChart === "doughnut" ? "selected" : "deselected"}>Doughnut</button>
+        <button onClick={handleChartSelection} value="polar" className={selectedChart === "polar" ? "selected" : "deselected"}>Polar Area Chart</button>
     </section>
 }
 
