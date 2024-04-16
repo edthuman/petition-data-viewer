@@ -6,6 +6,7 @@ import { registerCharts } from '../registerCharts.ts'
 import ScopeSelector from './components/scope-selection/ScopeSelector.jsx'
 import DoughnutChart from './components/doughnut/DoughnutChart.jsx'
 import ChartSelector from './components/chart-selection/ChartSelector.jsx'
+import PolarAreaChart from './components/polar-area-chart/PolarAreaChart.jsx'
 
 
 registerCharts();
@@ -21,7 +22,10 @@ function App() {
       <PetitionSelector petitionData={petitionData} setPetitionData={setPetitionData}/>
       <ScopeSelector selectedScope={selectedScope} setSelectedScope={setSelectedScope}/>
       <ChartSelector selectedChart={selectedChart} setSelectedChart={setSelectedChart}/>
-      {Object.keys(petitionData).length ? (selectedChart === "bar" ? <BarChart petitionData={petitionData} selectedScope={selectedScope}/> : <DoughnutChart petitionData={petitionData} selectedScope={selectedScope}/>) : null}
+      {Object.keys(petitionData).length ? (
+        selectedChart === "bar" ? <BarChart petitionData={petitionData} selectedScope={selectedScope}/> : (
+          selectedChart === "doughnut" ? <DoughnutChart petitionData={petitionData} selectedScope={selectedScope}/> : (
+          <PolarAreaChart petitionData={petitionData} selectedScope={selectedScope}/>))) : null}
     </>
   )
 }
