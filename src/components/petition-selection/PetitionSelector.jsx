@@ -50,6 +50,7 @@ function PetitionSelector({petitionData, setPetitionData}) {
     }
     
     return <>
+        <h2>Please enter the petition ID below</h2>
         <form onSubmit={handlePetitionIDSubmit}>
             <label>Petition ID Number:
                 <input type="text" onChange={handlePetitonIDInput} value={inputID}></input>
