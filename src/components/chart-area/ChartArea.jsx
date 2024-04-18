@@ -10,12 +10,14 @@ function ChartArea({petitionData, selectedScope, selectedChart}) {
     const signaturesPerLabel = []
     let ukSignatureCount = 0
     
-    if (selectedScope === "world") {
-        allScopeData.push(...petitionData.signaturesByCountry)
-    } else if (selectedScope === "uk-regions") {
-        allScopeData.push(...petitionData.signaturesByRegion)
-    } else {
-        allScopeData.push(...petitionData.signaturesByConstituency)
+    if (petitionData.state !== "rejected") {
+        if (selectedScope === "world") {
+            allScopeData.push(...petitionData.signaturesByCountry)
+        } else if (selectedScope === "uk-regions") {
+            allScopeData.push(...petitionData.signaturesByRegion)
+        } else {
+            allScopeData.push(...petitionData.signaturesByConstituency)
+        }
     }
 
     for (let i = 0; i < allScopeData.length; i++) {
@@ -32,15 +34,15 @@ function ChartArea({petitionData, selectedScope, selectedChart}) {
                  selectedChart === "doughnut" ? <DoughnutChart labels={labels} signaturesPerLabel={signaturesPerLabel}/> : (
                 selectedChart === "polar" ? <PolarAreaChart labels={labels} signaturesPerLabel={signaturesPerLabel}/> : null))}
             </>)}
-        </>) : <p>Signature counts by location are unavailable for this petition, it had {petitionData.signatureCount} signatures in total</p>}
-        <figcaption>
+            <figcaption>
             Number of signatures from each {selectedScope === "world" ? "country" : (selectedScope === "uk-regions" ? "UK region" : "UK constituency")} for the petition "{petitionData.title}"
             {selectedChart !== "table" ? (<>
                 <br/>
                 {selectedScope === "world" ? <>{`The United Kingdom has been excluded from the data, it had ${ukSignatureCount} signatures.`}<br/></> : null}
                 Highlight over the {selectedChart === "bar" ? "bars" : "segments"} to see which {selectedScope === "world" ? "country" : (selectedScope === "uk-regions" ? "region" : "constituency")} they are for.
             </>) : null}
-        </figcaption>
+            </figcaption>
+        </>) : <p>Signature counts by location are unavailable for this petition, it had {petitionData.signatureCount} signatures in total</p>}
     </figure>
 }
 
