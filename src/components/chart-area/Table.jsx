@@ -9,11 +9,13 @@ function Table({ukSignatureCount, labels, signaturesPerLabel, selectedScope}) {
     }
 
     return <table>
+        <tbody>
         <tr>
             <th>{selectedScope === "world" ? "Country" : (selectedScope === "uk-regions" ? "Region" : "Constituency")}</th>
             <th>Number of Signatures</th>
         </tr>
-        {allCountryLabels.map((country, index) => <tr><td className="row-name">{country}</td><td className="row-signatures">{allCountrySignatures[index]}</td></tr>)}
+        {allCountryLabels.map((country, index) => <tr key={index}><td className="row-name">{country}</td><td className="row-signatures">{allCountrySignatures[index]}</td></tr>)}
+        </tbody>
     </table>
 }
 
