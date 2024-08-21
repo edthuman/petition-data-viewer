@@ -1,3 +1,5 @@
 # What is this project?
 
-This is a website where I'll be taking allowing users to chose a petition, and by providing its id number, displays the available data relating to it in various ways.
+This website allows users to view the data for a petition from the UK government's website (https://petition.parliament.uk/) from its id number.
+
+It allows users to select the type of chart they want the data presented in. 
